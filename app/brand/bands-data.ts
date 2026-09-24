@@ -55,4 +55,5 @@ export const bands: Band[] = [
       { id: 5, name: "ขจรเดช พรมรักษา (กบ)", role: "กลอง (Drums)", image: "/image/members/กบ.jpg" },
     ],
   },
+
 ];

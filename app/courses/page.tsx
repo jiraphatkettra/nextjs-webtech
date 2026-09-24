@@ -1,32 +1,24 @@
-type Course = {
-  id: number;
-  code: string;
-  title: string;
-  credits: number;
-  isOpen: boolean;
-};
+import type { Metadata } from "next";
+import { courses } from "@/data/courses";
+import CourseExplorer from "@/components/CourseExplorer";
 
-const courses: Course[] = [
-  { id: 1, code: "10301231", title: "Web Technology", credits: 3, isOpen: true },
-  { id: 2, code: "10301232", title: "Database Systems", credits: 3, isOpen: false },
-  { id: 3, code: "10301233", title: "Software Engineering", credits: 3, isOpen: true },
-  { id: 4, code: "10301234", title: "Computer Networks", credits: 3, isOpen: true },
-];
+export const metadata: Metadata = {
+  title: "รายวิชาทั้งหมด | Course Hub",
+};
 
 export default function CoursesPage() {
   return (
-    <main className="page">
-      <h1>รายวิชาที่เปิดสอน</h1>
-      <section className="courseGrid">
-        {courses.map((course) => (
-          <article key={course.id} className="courseCard">
-            <h2>{course.title}</h2>
-            <p>รหัสวิชา: {course.code}</p>
-            <p>จำนวนหน่วยกิต: {course.credits} หน่วยกิต</p>
-            <p>สถานะ: {course.isOpen ? "🟢 เปิดให้ลงทะเบียน" : "🔴 ปิดการลงทะเบียน"}</p>
-          </article>
-        ))}
-      </section>
+    <main className="mx-auto w-full max-w-5xl px-6 py-8 sm:py-12">
+      <div className="border-b border-white/10 pb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white">
+          รายวิชาทั้งหมด
+        </h1>
+        <p className="mt-2 text-sm text-gray-400">
+          ระบบจัดการรายวิชาสำหรับนักศึกษา (เพิ่ม ลบ แก้ไข และค้นหาข้อมูล)
+        </p>
+      </div>
+
+      <CourseExplorer initialCourses={courses} />
     </main>
   );
 }

@@ -22,79 +22,74 @@ export default async function BandDetailPage({
   }
 
   return (
-    <main className="page">
-      <div style={{ marginBottom: "1rem" }}>
+    <main className="mx-auto w-full max-w-5xl px-6 py-10 sm:py-16">
+      {/* Back Button */}
+      <div className="mb-6">
         <Link
           href="/brand"
-          style={{
-            color: "#1d4ed8",
-            textDecoration: "none",
-            fontWeight: 500,
-          }}
+          className="inline-flex items-center gap-2 rounded-full bg-white/[0.04] border border-white/[0.08] px-3.5 py-1.5 text-xs font-medium text-text-muted transition-all duration-200 hover:bg-white/[0.08] hover:text-text-primary"
         >
-          ← ย้อนกลับไปหน้า Favorites Brands
+          <span>←</span>
+          <span>ย้อนกลับไปหน้า Favorites Brands</span>
         </Link>
       </div>
 
-      <h1>
-        {band.name} <span style={{ fontSize: "1.25rem", color: "#6b7280" }}>({band.thaiName})</span>
-      </h1>
-      <p style={{ color: "#4b5563", marginTop: "0.25rem" }}>{band.description}</p>
+      <div className="border-b border-white/[0.06] pb-8">
+        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-gradient-apple">
+          {band.name}{" "}
+          <span className="text-xl sm:text-2xl text-text-muted font-normal">({band.thaiName})</span>
+        </h1>
+        <p className="mt-3 text-sm sm:text-base text-text-muted max-w-2xl leading-relaxed">
+          {band.description}
+        </p>
+      </div>
 
-      {/* รูปภาพประจำวง */}
-      <section style={{ marginBlock: "1.5rem" }}>
-        <Image
-          src={band.image}
-          alt={`รูปภาพวง ${band.name}`}
-          width={550}
-          height={350}
-          style={{
-            maxWidth: "100%",
-            width: "550px",
-            height: "auto",
-            display: "block",
-            borderRadius: "0.5rem",
-            border: "1px solid #d1d5db",
-          }}
-        />
+      {/* รูปภาพประจำวง (Apple Bento Showcase) */}
+      <section className="my-8 apple-card rounded-3xl p-4 sm:p-6 overflow-hidden">
+        <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] max-w-[640px]">
+          <Image
+            src={band.image}
+            alt={`รูปภาพวง ${band.name}`}
+            width={640}
+            height={400}
+            className="w-full h-auto object-cover transition-transform duration-500 hover:scale-102"
+          />
+        </div>
       </section>
 
-      {/* รายชื่อสมาชิกในวง */}
-      <section className="courseCard" style={{ marginTop: "1rem" }}>
-        <h2 style={{ marginTop: 0, marginBottom: "1rem" }}>รายชื่อสมาชิกในวง</h2>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
+      {/* รายชื่อสมาชิกในวง (Apple Bento Member Grid) */}
+      <section className="apple-card rounded-3xl p-6 sm:p-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-text-primary">รายชื่อสมาชิกในวง</h2>
+          <span className="text-xs font-mono text-text-muted">{band.members.length} Members</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {band.members.map((member) => (
-            <li key={member.id} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div
+              key={member.id}
+              className="flex items-center gap-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] p-3.5 transition-all duration-200 hover:bg-white/[0.06] hover:border-white/[0.12]"
+            >
               {member.image && (
                 <Image
                   src={member.image}
                   alt={member.name}
-                  width={160}
-                  height={210}
-                  style={{
-                    width: "160px",
-                    height: "210px",
-                    borderRadius: "0.5rem",
-                    objectFit: "cover",
-                    objectPosition: "top center",
-                    border: "1px solid #d1d5db",
-                    flexShrink: 0,
-                  }}
+                  width={90}
+                  height={110}
+                  className="w-[72px] h-[90px] rounded-xl border border-white/[0.08] object-cover object-top shrink-0 shadow-md"
                 />
               )}
-              <div>
-                <strong style={{ fontSize: "1.8rem", display: "block" }}>
+              <div className="min-w-0 flex-1">
+                <strong className="text-base sm:text-lg block text-text-primary truncate">
                   {member.name || "____________________"}
                 </strong>
                 {member.role && (
-                  <span style={{ color: "#4b5563", fontSize: "1.2rem" }}>
-                    {member.role}
-                  </span>
+                  <span className="text-xs text-accent font-medium mt-0.5 block">{member.role}</span>
                 )}
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
     </main>
   );

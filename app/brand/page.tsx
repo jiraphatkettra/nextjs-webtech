@@ -1,41 +1,24 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { bands } from "./bands-data";
+import BandExplorer from "@/components/BandExplorer";
+
+export const metadata: Metadata = {
+  title: "Favorites Bands | วงดนตรีวงโปรด",
+};
 
 export default function BrandPage() {
-    return (
-        <main className="page">
-            <h1>Favorites Brands</h1>
-            <p>เลือกวงดนตรีวงโปรดเพื่อดูรูปภาพและรายชื่อสมาชิกทั้งหมดในวง</p>
+  return (
+    <main className="mx-auto w-full max-w-5xl px-6 py-8 sm:py-12">
+      <div className="border-b border-white/10 pb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white">
+          Favorites Bands
+        </h1>
+        <p className="mt-2 text-sm text-gray-400">
+          ค้นหาและกดติดตามวงดนตรีวงโปรด พร้อมดูรายชื่อสมาชิกในวง
+        </p>
+      </div>
 
-            <section className="courseGrid" style={{ marginTop: "1.5rem" }}>
-                {bands.map((band) => (
-                    <article key={band.id} className="courseCard">
-                        <h2>
-                            {band.name} <span style={{ fontSize: "1rem", color: "#6b7280" }}>({band.thaiName})</span>
-                        </h2>
-                        <p>{band.description}</p>
-                        <p style={{ color: "#4b5563" }}>
-                            สมาชิก: {band.members.length} คน
-                        </p>
-                        <div style={{ marginTop: "1rem" }}>
-                            <Link
-                                href={`/brand/${band.id}`}
-                                style={{
-                                    display: "inline-block",
-                                    padding: "0.5rem 1rem",
-                                    backgroundColor: "#1d4ed8",
-                                    color: "#ffffff",
-                                    borderRadius: "0.375rem",
-                                    textDecoration: "none",
-                                    fontSize: "0.95rem",
-                                }}
-                            >
-                                ดูสมาชิกในวง →
-                            </Link>
-                        </div>
-                    </article>
-                ))}
-            </section>
-        </main>
-    );
+      <BandExplorer bands={bands} />
+    </main>
+  );
 }

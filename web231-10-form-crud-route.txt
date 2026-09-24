@@ -1,0 +1,834 @@
+ใบงานปฏิบัติรายวิชา 10301231 เว็บเทคโนโลยี
+Form, Validation และ Dynamic Route
+ชื่อ-สกุล
+ 
+รหัสนักศึกษา
+ 
+ภาพรวมใบงาน
+ใบงานที่ผ่านมาทำให้หน้าเว็บตอบสนองต่อผู้ใช้ได้แล้ว แต่ข้อมูลรายวิชายังคงที่ ใบงานนี้จะเพิ่มฟอร์มสำหรับบันทึกรายวิชาใหม่ พร้อมตรวจสอบความถูกต้องของข้อมูลก่อนบันทึก เพิ่มความสามารถในการลบและแก้ไขรายวิชาที่มีอยู่ และสร้างหน้ารายละเอียดของแต่ละรายวิชา ด้วย Dynamic Route ที่อ่านค่าจาก URL
+ผลลัพธ์การเรียนรู้
+สร้างฟอร์มแบบ Controlled Input ที่เก็บค่าของทุกฟิลด์ไว้ใน State ก้อนเดียวได้
+เขียนฟังก์ชัน Event Handler ที่ใช้ร่วมกันได้ทุกฟิลด์ด้วย Computed Property Name ได้
+จัดการเหตุการณ์ onSubmit และยับยั้งพฤติกรรมเริ่มต้นของเบราว์เซอร์ได้
+เขียนฟังก์ชันตรวจสอบความถูกต้องของข้อมูลที่คืนผลเป็นข้อความแจ้งเตือนรายฟิลด์ได้
+แสดงข้อความแจ้งเตือนพร้อมกำหนดคุณสมบัติด้านการเข้าถึงให้อินพุตได้
+เพิ่ม ลบ และแก้ไขสมาชิกของ Array ใน State แบบ Immutable ได้
+ออกแบบ Callback Props เพื่อส่งเหตุการณ์จาก Child Component กลับไปยัง Parent Component ได้
+สร้าง Dynamic Route ด้วยโฟลเดอร์ที่ตั้งชื่อในวงเล็บเหลี่ยมได้
+อ่านค่าพารามิเตอร์จาก params ซึ่งเป็น Promise ด้วยคำสั่ง await ได้
+เรียกใช้ notFound เมื่อไม่พบข้อมูลตามพารามิเตอร์ที่ระบุได้
+กำหนด Metadata ของหน้าตามข้อมูลจริงด้วย generateMetadata ได้
+เชื่อมหน้ารายการเข้ากับหน้ารายละเอียดด้วย Link ได้
+อธิบายข้อจำกัดของการเก็บข้อมูลไว้ใน State ของหน้าเดียวได้
+Keyword ที่เกี่ยวข้อง
+คำศัพท์
+ความหมายและตัวอย่างในใบงานนี้
+Controlled Input
+อินพุตที่ค่าถูกกำหนดจาก State ผ่าน value และแจ้งการเปลี่ยนแปลงกลับผ่าน onChange ในใบงานนี้ใช้กับทุกช่องกรอกของ CourseForm
+Computed Property Name
+การใช้ชื่อคีย์ที่คำนวณขณะทำงานภายในวงเล็บเหลี่ยม เช่น [name]: value ทำให้ใช้ฟังก์ชันเดียวรองรับทุกฟิลด์ได้
+FormEvent
+ชนิดของเหตุการณ์การส่งฟอร์มใน TypeScript ใช้กับ onSubmit ของ <form>
+preventDefault
+เมธอดที่ยับยั้งพฤติกรรมเริ่มต้นของเบราว์เซอร์ ในที่นี้คือการโหลดหน้าใหม่เมื่อส่งฟอร์ม
+Validation
+การตรวจสอบความถูกต้องของข้อมูลก่อนนำไปบันทึก ในใบงานนี้ตรวจรหัสวิชา ชื่อวิชา และหน่วยกิต
+Error State
+State ที่เก็บข้อความแจ้งเตือนของแต่ละฟิลด์ ใช้ตัดสินใจว่าจะแสดงข้อความใดใต้อินพุต
+Immutable Update
+การสร้างค่าใหม่แทนการแก้ไขค่าเดิม ในใบงานนี้ใช้ Spread Operator กับ filter และ map
+crypto.randomUUID
+เมธอดมาตรฐานของเบราว์เซอร์ที่สร้างรหัสสุ่มไม่ซ้ำกันในรูปแบบ UUID ใช้กำหนดรหัสให้รายวิชาที่เพิ่มใหม่
+Callback Props
+ฟังก์ชันที่ Parent Component ส่งลงไปให้ Child Component เรียกกลับเมื่อเกิดเหตุการณ์ เช่น onSave onDelete และ onEdit
+Dynamic Route
+เส้นทางที่มีบางส่วนของ URL เปลี่ยนแปลงได้ สร้างด้วยโฟลเดอร์ชื่อ [id] รองรับ /courses/CS101 และ /courses/CS102 ด้วยไฟล์เดียว
+params
+อ็อบเจกต์ที่บรรจุค่าของ Dynamic Segment ตั้งแต่ Next.js เวอร์ชัน 15 เป็นต้นไป เป็น Promise จึงต้องใช้ await ก่อนอ่านค่า
+notFound
+ฟังก์ชันจาก next/navigation ที่สั่งให้ Next.js แสดงหน้า 404 ใช้เมื่อไม่พบข้อมูลตามพารามิเตอร์
+generateMetadata
+ฟังก์ชันที่ Next.js เรียกเพื่อสร้าง Metadata ของหน้าจากข้อมูลจริง ใช้แทน metadata เมื่อชื่อหน้าขึ้นกับพารามิเตอร์
+Link
+Component จาก next/link ที่เปลี่ยนหน้าโดยไม่โหลดเอกสารใหม่ทั้งหน้า
+แผนภาพการทำงานของหน้า /courses และหน้ารายละเอียด
+โครงสร้างไฟล์ของโปรเจกต์
+next-course-hub/├── public/├── src/│   ├── app/│   │   ├── courses/│   │   │   ├── [id]/│   │   │   │   └── page.tsx          +  หน้ารายละเอียดรายวิชา│   │   │   └── page.tsx              ~  ส่งข้อมูลให้ Client Component│   │   ├── layout.tsx│   │   └── page.tsx│   ├── components/│   │   ├── CourseCard.tsx            ~  เพิ่มลิงก์ ปุ่มแก้ไข และปุ่มลบ│   │   ├── CourseExplorer.tsx        ~  เก็บรายการรายวิชาไว้ใน State│   │   └── CourseForm.tsx            +  ฟอร์มบันทึกและแก้ไขรายวิชา│   ├── data/│   │   └── courses.ts                ~  เพิ่มฟิลด์ให้ข้อมูลตัวอย่าง│   └── types/│       └── course.ts                 ~  เพิ่มฟิลด์ให้ Type└── package.json+  สร้างใหม่        ~  แก้ไขจากใบงานเดิม
+ไฟล์
+ชนิด
+หน้าที่
+src/types/course.ts
+TypeScript
+กำหนดโครงสร้างข้อมูลรายวิชาที่ใช้ร่วมกันทั้งโปรเจกต์
+src/data/courses.ts
+TypeScript
+เก็บข้อมูลรายวิชาตั้งต้นที่ฝั่งเซิร์ฟเวอร์
+src/components/CourseForm.tsx
+Client Component
+รับข้อมูลจากผู้ใช้ ตรวจสอบความถูกต้อง แล้วส่งผลลัพธ์กลับผ่าน Callback Props
+src/components/CourseCard.tsx
+Client Component
+แสดงรายวิชาหนึ่งรายการ พร้อมลิงก์ไปหน้ารายละเอียด ปุ่มแก้ไข และปุ่มลบ
+src/components/CourseExplorer.tsx
+Client Component
+เก็บรายการรายวิชาไว้ใน State และเป็นศูนย์กลางของการเพิ่ม ลบ และแก้ไข
+src/app/courses/page.tsx
+Server Component
+อ่านข้อมูลตั้งต้นแล้วส่งต่อให้ CourseExplorer ผ่าน Props
+src/app/courses/[id]/page.tsx
+Server Component
+อ่านรหัสรายวิชาจาก URL แล้วแสดงรายละเอียดของรายวิชานั้น
+แผนผังโครงของไฟล์ Component
+src/components/CourseForm.tsx
+"use client";// 1  import ทั้งหมด// 2  type ของ Props และ type ของข้อมูลในฟอร์มexport default function CourseForm() {  // 3  State ของฟอร์มและ State ของข้อความแจ้งเตือน  // 4  ฟังก์ชันตรวจสอบความถูกต้อง  // 5  ฟังก์ชัน handle สำหรับเหตุการณ์ต่าง ๆ  // 6  return ส่วนแสดงผล}
+ส่วนที่ 1 ฟอร์มและ Controlled Input
+1.1 ปรับแก้ไขฟิลด์ข้อมูลรายวิชา
+src/types/course.ts
+export type Course = {  id: string;  code: string;  name: string;  credit: number;  instructor: string;};
+src/data/courses.ts
+import type { Course } from "@/types/course";export const courses: Course[] = [  {    id: "CS101",    code: "CS101",    name: "Introduction to Computer Science",    credit: 3,    instructor: "อาจารย์ผู้สอนรายวิชา",  },  {    id: "CS201",    code: "CS201",    name: "Data Structures and Algorithms",    credit: 3,    instructor: "อาจารย์ผู้สอนรายวิชา",  },];
+1.2 แยก Type ของข้อมูลระหว่างกรอกออกจาก Course
+แนวทางที่เป็นมาตรฐานคือให้ State ของฟอร์มเก็บสิ่งที่ผู้ใช้พิมพ์ตามจริงเป็นข้อความ แล้วแปลงเป็นตัวเลขครั้งเดียวเมื่อผ่านการตรวจสอบแล้ว จึงต้องมี Type สำหรับข้อมูล ระหว่างกรอกแยกจาก Course
+src/components/CourseForm.tsx
+"use client";import { useState } from "react";export type CourseDraft = {  code: string;  name: string;  credit: string;  instructor: string;};const emptyDraft: CourseDraft = {  code: "",  name: "",  credit: "",  instructor: "",};export default function CourseForm() {  // เติม: Hook ที่ใช้ประกาศตัวแปรสถานะภายใน Component  const [draft, setDraft] = ________<CourseDraft>(emptyDraft);  return (    <form>      <input name="code" value={draft.code} />    </form>  );}
+ส่วนของโค้ด
+ความหมาย
+export type CourseDraft
+Type ของข้อมูลระหว่างกรอกที่ยังไม่ผ่านการตรวจสอบ ทุกฟิลด์เป็นข้อความ ต้องประกาศ export เพราะ CourseExplorer ในส่วนที่ 3 ต้องนำไปใช้เป็นชนิดของพารามิเตอร์
+credit: string
+เก็บสิ่งที่ผู้ใช้พิมพ์ตามจริง ค่าว่างจึงแทนสถานะยังไม่กรอกได้
+emptyDraft
+ค่าตั้งต้นของฟอร์ม ใช้ซ้ำได้เมื่อต้องการล้างฟอร์มหลังบันทึก
+ไม่มีฟิลด์ id
+รหัสถูกสร้างเมื่อบันทึกสำเร็จ ข้อมูลระหว่างกรอกจึงยังไม่ต้องมี
+หัวข้อเปรียบเทียบ
+CourseDraft
+Course
+ใช้เมื่อใด
+ระหว่างผู้ใช้กรอกในฟอร์ม
+หลังผ่านการตรวจสอบและบันทึกแล้ว
+ความถูกต้องของข้อมูล
+ยังไม่รับประกัน
+รับประกันแล้ว
+ชนิดของ credit
+string
+number
+ฟิลด์ id
+ไม่มี
+มีเสมอ
+1.4 ฟังก์ชันเดียวที่รองรับทุกฟิลด์
+src/components/CourseForm.tsx · ส่วนที่ 5 ของแผนผังโครง
+function handleChange(event: ChangeEvent<HTMLInputElement>) {  const { name, value } = event.target;  setDraft((prev) => ({ ...prev, [name]: value }));}
+ส่วนของโค้ด
+ความหมาย
+const { name, value } = event.target
+อ่านคุณสมบัติ name และ value ของอินพุตที่เกิดเหตุการณ์
+[name]: value
+Computed Property Name กำหนดคีย์ตามค่าของตัวแปร name ขณะทำงาน
+(prev) => ({ ... })
+Updater Function อ้างอิงค่าล่าสุดของ State เสมอ ป้องกันค่าคลาดเคลื่อน
+...prev
+คัดลอกฟิลด์เดิมทั้งหมดมาก่อน แล้วจึงเขียนทับเฉพาะฟิลด์ที่เปลี่ยน
+หมายเหตุ ค่าของคุณสมบัติ name ในแท็ก <input> ต้องตรงกับชื่อฟิลด์ใน CourseDraft ทุกตัว
+1.5 ผูกทุกอินพุตเข้ากับ State
+src/components/CourseForm.tsx · ส่วนที่ 6 ของแผนผังโครง
+<form onSubmit={handleSubmit} noValidate>  <label htmlFor="code">รหัสวิชา</label>  <input id="code" name="code" type="text" value={draft.code}         onChange={handleChange} />  <label htmlFor="name">ชื่อวิชา</label>  // เติม: ชื่อฟิลด์ใน CourseDraft ที่ช่องนี้รับผิดชอบ  <input id="name" name="________" type="text" value={draft.name}         onChange={handleChange} />  <label htmlFor="credit">หน่วยกิต</label>  <input id="credit" name="credit" type="number" inputMode="numeric"         min="1" max="6" value={draft.credit} onChange={handleChange} />  <label htmlFor="instructor">ผู้สอน</label>  <input id="instructor" name="instructor" type="text"         value={draft.instructor} onChange={handleChange} />  <button type="submit">บันทึก</button></form>
+แอตทริบิวต์
+หน้าที่
+type="number"
+เรียกแป้นตัวเลขบนอุปกรณ์พกพา แสดงปุ่มเพิ่มลดค่า และไม่รับตัวอักษรทั่วไป ใช้กับปริมาณที่คำนวณได้
+inputMode="numeric"
+ระบุรูปแบบแป้นพิมพ์ให้ชัดเจนสำหรับอุปกรณ์ที่ไม่รองรับ type ข้างต้น
+min และ max
+ขอบเขตที่เบราว์เซอร์ใช้ยับยั้งการส่งฟอร์ม ไม่ได้ห้ามผู้ใช้พิมพ์ค่านอกขอบเขต
+noValidate
+ปิดการตรวจสอบอัตโนมัติของเบราว์เซอร์ที่ <form> เพื่อให้ควบคุมข้อความแจ้งเตือนเองได้
+type="text" ที่รหัสวิชา
+รหัสวิชาเป็นตัวระบุ ไม่ใช่ปริมาณ หากใช้ number เลขศูนย์นำหน้าจะไม่ปรากฏ
+1.6 จัดการเหตุการณ์การส่งฟอร์ม
+src/components/CourseForm.tsx · ส่วนที่ 5 ของแผนผังโครง
+function handleSubmit(event: FormEvent<HTMLFormElement>) {  event.preventDefault();  console.log(draft);}
+ทดสอบ: นำบรรทัด event.preventDefault() ออกชั่วคราว แล้วคลิกปุ่มบันทึก สังเกตว่าหน้าเว็บโหลดใหม่และข้อมูลใน Console ไม่ปรากฏ
+กิจกรรม 1.6 บันทึกผลการทดลอง
+กรอกข้อมูลครบทุกช่อง แล้วคลิกปุ่มบันทึก
+ค่าที่ปรากฏใน Console คือ
+ชนิดข้อมูลของ credit ที่ได้คือ
+ส่วนที่ 2 การตรวจสอบความถูกต้องของข้อมูล
+2.1 ฟังก์ชันตรวจสอบที่คืนผลเป็นข้อความรายฟิลด์
+src/components/CourseForm.tsx · ส่วนที่ 4 ของแผนผังโครง
+type FormErrors = Partial<Record<keyof CourseDraft, string>>;function validate(value: CourseDraft): FormErrors {  const nextErrors: FormErrors = {};  if (value.code.trim() === "") {    nextErrors.code = "กรุณาระบุรหัสวิชา";  }  // เติม: เมธอดที่ตัดช่องว่างหัวท้ายของข้อความออก  if (value.name.________() === "") {    nextErrors.name = "กรุณาระบุชื่อวิชา";  }  const credit = Number(value.credit);  if (!Number.isInteger(credit) || credit < 1 || credit > 6) {    nextErrors.credit = "หน่วยกิตต้องเป็นจำนวนเต็มตั้งแต่ 1 ถึง 6";  }  return nextErrors;}
+ส่วนของโค้ด
+ความหมาย
+Record<K, V>
+Record สร้าง Type ที่มีคีย์ตาม K และทุกคีย์เก็บค่าชนิด V บังคับให้มีครบทุกคีย์
+type Full = Record<keyof CourseDraft, string>;
+// เทียบเท่ากับเขียนเองว่า
+type Full = {
+  code: string;
+  name: string;
+  credit: string;
+  instructor: string;
+};
+keyof CourseDraft
+รวมชื่อฟิลด์ทั้งหมดของ CourseDraft ให้เป็น Type เดียว
+type CourseDraft = {
+  code: string;
+  name: string;
+  credit: string;
+  instructor: string;
+};
+type Keys = keyof CourseDraft;
+// ได้  "code" | "name" | "credit" | "instructor"
+Partial<Record<...>>
+Type ที่มีคีย์ตามชื่อฟิลด์ของ CourseDraft ทุกคีย์เป็นตัวเลือก 
+type FormErrors = Partial<Record<keyof CourseDraft, string>>;
+// เทียบเท่ากับ
+type FormErrors = {
+  code?: string;
+  name?: string;
+  credit?: string;
+  instructor?: string;
+};
+Number(value.credit)
+แปลงข้อความเป็นตัวเลข หากแปลงไม่ได้จะได้ค่า NaN
+Number.isInteger
+ตรวจว่าเป็นจำนวนเต็มหรือไม่ ค่า NaN จะไม่ผ่านเงื่อนไขนี้
+2.2 เก็บผลการตรวจสอบไว้ใน State
+src/components/CourseForm.tsx · ส่วนที่ 3 และ 5 ของแผนผังโครง
+const [errors, setErrors] = useState<FormErrors>({});function handleSubmit(event: FormEvent<HTMLFormElement>) {  // เติม: เมธอดที่ยับยั้งพฤติกรรมเริ่มต้นของเบราว์เซอร์  event.________();  const nextErrors = validate(draft);  setErrors(nextErrors);  // เติม: เมธอดของ Object ที่คืนอาร์เรย์ของชื่อคีย์ทั้งหมด  if (Object.________(nextErrors).length > 0) {    return;  }  setDraft(emptyDraft);  setErrors({});}
+ส่วนของโค้ด
+ความหมาย
+useState<FormErrors>({})
+เริ่มต้นด้วยอ็อบเจกต์ว่าง หมายถึงยังไม่มีฟิลด์ใดที่ไม่ผ่านการตรวจสอบ
+.length > 0
+มีอย่างน้อยหนึ่งฟิลด์ที่ไม่ผ่าน จึงยุติการทำงานด้วย return
+setDraft(emptyDraft)
+ล้างฟอร์มกลับสู่ค่าตั้งต้นเมื่อข้อมูลผ่านการตรวจสอบครบแล้ว
+2.3 แสดงข้อความแจ้งเตือนใต้อินพุต
+src/components/CourseForm.tsx · ส่วนที่ 6 ของแผนผังโครง
+<label htmlFor="code">รหัสวิชา</label><input  id="code"  name="code"  type="text"  value={draft.code}  onChange={handleChange}  // !! ฟังก์ชันที่แปลงค่าใด ๆ ให้เป็นค่าตรรกะ  aria-invalid={!!errors.code}  aria-describedby={errors.code ? "code-error" : undefined}/>{errors.code ? <p id="code-error">{errors.code}</p> : null}
+ส่วนของโค้ด
+ความหมาย
+aria-invalid
+แจ้งโปรแกรมอ่านหน้าจอว่าอินพุตนี้มีค่าที่ไม่ผ่านการตรวจสอบ
+aria-describedby
+ผูกอินพุตเข้ากับย่อหน้าที่อธิบายสาเหตุที่ไม่ผ่านการตรวจสอบ ผ่านค่า id ที่ตรงกัน
+!!
+ฟังก์ชันที่แปลงค่าใด ๆ ให้เป็นค่าตรรกะaria-invalid={Boolean(errors.code)}          // ที่ใช้ในใบงาน
+aria-invalid={!!errors.code}                 // แบบย่อ นิยมในโค้ดจริง
+aria-invalid={errors.code !== undefined}     // ชัดเจนที่สุด
+errors.code ? ... : null
+แสดงย่อหน้าเฉพาะเมื่อฟิลด์นั้นมีข้อความแจ้งเตือน
+กิจกรรม 2.3 ทดสอบการตรวจสอบข้อมูล
+คลิกปุ่มบันทึกโดยไม่กรอกข้อมูลใด ๆ สังเกตว่ามีข้อความแจ้งเตือนกี่ข้อความ
+กรอกหน่วยกิตเป็น 0 แล้วคลิกปุ่มบันทึก สังเกตข้อความที่ปรากฏ
+กรอกหน่วยกิตเป็น 2.5 แล้วคลิกปุ่มบันทึก สังเกตว่าผลลัพธ์แตกต่างจากข้อก่อนหน้าหรือไม่
+กรอกรหัสวิชาเป็นช่องว่างล้วน สังเกตว่ายังคงถือว่าไม่ผ่านการตรวจสอบ
+ส่วนที่ 3 เพิ่ม ลบ และแก้ไขรายวิชา
+เมื่อฟอร์มตรวจสอบข้อมูลได้แล้ว ขั้นถัดไปคือการนำข้อมูลไปเก็บไว้ในรายการจริง รายการรายวิชาต้องอยู่ที่ CourseExplorer เพราะทั้ง CourseForm และ CourseCard ต้องใช้ข้อมูลชุดเดียวกัน
+3.1 ย้ายรายการรายวิชามาไว้ใน State ของ Parent Component
+src/components/CourseExplorer.tsx · ส่วนที่ 3 ของแผนผังโครง
+type CourseExplorerProps = {  initialCourses: Course[];};export default function CourseExplorer(  { initialCourses }: CourseExplorerProps) {  // เติม: ชื่อ Props ที่รับข้อมูลตั้งต้นมาจาก Server Component  const [courses, setCourses] = useState<Course[]>(________);  const [keyword, setKeyword] = useState("");  const [editingId, setEditingId] = useState<string | null>(null);
+ส่วนของโค้ด
+ความหมาย
+useState(initialCourses)
+ใช้ข้อมูลจากเซิร์ฟเวอร์เป็นค่าตั้งต้น จากนั้นรายการจะถูกจัดการที่ฝั่งเบราว์เซอร์
+editingId
+เก็บรหัสของรายวิชาที่กำลังแก้ไข ค่า null หมายถึงอยู่ในโหมดเพิ่มรายการใหม่
+3.2 เพิ่มรายวิชาใหม่
+src/components/CourseExplorer.tsx · ส่วนที่ 5 ของแผนผังโครง
+function handleCreate(draft: CourseDraft) {  // เติม: เมธอดที่สร้างรหัสสุ่มไม่ซ้ำกันในรูปแบบ UUID  const newCourse: Course = {    id: crypto.________(),    code: draft.code.trim(),    name: draft.name.trim(),    credit: Number(draft.credit),    instructor: draft.instructor.trim(),  };  setCourses([...courses, newCourse]);}
+ส่วนของโค้ด
+ความหมาย
+[...courses, newCourse]
+สร้าง Array ใหม่ที่มีสมาชิกเดิมทั้งหมดแล้วต่อท้ายด้วยรายการใหม่
+Number(draft.credit)
+แปลงหน่วยกิตเป็นตัวเลขก่อนบันทึก เพราะ Course กำหนดชนิดไว้เป็น number
+3.3 ลบรายวิชา
+src/components/CourseExplorer.tsx · ส่วนที่ 5 ของแผนผังโครง
+function handleDelete(id: string) {  // เติม: เมธอดของ Array ที่คืนเฉพาะสมาชิกที่ผ่านเงื่อนไข  setCourses(courses.________((course) => course.id !== id));}
+3.4 แก้ไขรายวิชา
+src/components/CourseExplorer.tsx · ส่วนที่ 5 ของแผนผังโครง
+function handleUpdate(id: string, draft: CourseDraft) {  setCourses(    courses.map((course) =>      course.id === id        ? {            ...course,            code: draft.code.trim(),            name: draft.name.trim(),            credit: Number(draft.credit),            instructor: draft.instructor.trim(),          }        : course    )  );  setEditingId(null);}
+ส่วนของโค้ด
+ความหมาย
+courses.map(...)
+สร้าง Array ใหม่ที่มีจำนวนสมาชิกเท่าเดิม แต่แทนที่เฉพาะรายการที่รหัสตรงกัน
+{ ...course, ... }
+คัดลอกฟิลด์เดิมของรายการนั้นแล้วเขียนทับด้วยค่าที่แก้ไข
+: course
+รายการที่รหัสไม่ตรงกันถูกส่งกลับตามเดิมโดยไม่เปลี่ยนแปลง
+setEditingId(null)
+ปิดโหมดแก้ไขเมื่อบันทึกเสร็จ ฟอร์มจะกลับสู่โหมดเพิ่มรายการใหม่
+3.5 รวมการเพิ่มและการแก้ไขไว้ที่ Callback เดียว
+src/components/CourseExplorer.tsx · ส่วนที่ 5 ของแผนผังโครง
+function handleSave(draft: CourseDraft) {  if (editingId === null) {    handleCreate(draft);    return;  }  handleUpdate(editingId, draft);}const editingCourse = courses.find((course) => course.id === editingId);
+3.6 ปรับ CourseForm ให้รับ Props จาก Parent Component
+CourseForm ในส่วนที่ 1 และ 2 ยังทำงานตามลำพัง ขั้นนี้จึงเพิ่ม Props เพื่อรับรายวิชาที่กำลังแก้ไข และส่งผลลัพธ์กลับผ่าน Callback
+src/components/CourseForm.tsx · ส่วนที่ 1 ถึง 3 ของแผนผังโครง
+import type { Course } from "@/types/course";type CourseFormProps = {  initialCourse?: Course;  onSave: (draft: CourseDraft) => void;  onCancel: () => void;};function toDraft(course?: Course): CourseDraft {  if (!course) {    return emptyDraft;  }  return {    code: course.code,    name: course.name,    credit: String(course.credit),    instructor: course.instructor,  };}export default function CourseForm(  { initialCourse, onSave, onCancel }: CourseFormProps) {  const [draft, setDraft] = useState<CourseDraft>(toDraft(initialCourse));
+ส่วนของโค้ด
+ความหมาย
+initialCourse?: Course
+เครื่องหมายคำถามหมายถึงเป็น Props ที่ไม่บังคับ ไม่ส่งมาคือโหมดเพิ่มรายการใหม่
+toDraft
+แปลง Course เป็น CourseDraft เพื่อนำค่าเดิมกลับเข้าฟอร์ม
+String(course.credit)
+แปลงหน่วยกิตกลับเป็นข้อความ เพราะทุกฟิลด์ของ CourseDraft เป็น string
+onSave: (draft: CourseDraft) => void
+Type ของ Callback ที่ระบุว่าจะส่งข้อมูลชนิดใดกลับไปให้ Parent Component
+src/components/CourseForm.tsx · ส่วนที่ 5 ของแผนผังโครง
+if (Object.keys(nextErrors).length > 0) {  return;}onSave(draft);setDraft(emptyDraft);setErrors({});
+src/components/CourseForm.tsx · ส่วนที่ 6 ของแผนผังโครง
+<button type="submit">บันทึก</button>{initialCourse ? (  <button type="button" onClick={onCancel}>ยกเลิก</button>) : null}
+หมายเหตุ ปุ่มยกเลิกปรากฏเฉพาะขณะอยู่ในโหมดแก้ไข จึงใช้ initialCourse เป็นเงื่อนไข
+3.7 ส่ง Props และ Callback ลงไปยัง Child Component
+src/components/CourseExplorer.tsx · ส่วนที่ 6 ของแผนผังโครง
+<CourseForm  key={editingId ?? "new"}  initialCourse={editingCourse}  onSave={handleSave}  onCancel={() => setEditingId(null)}/>{visibleCourses.map((course) => (  // เติม: ฟิลด์ที่ไม่ซ้ำกันซึ่งใช้เป็นค่า key  <CourseCard    key={course.________}    course={course}    onEdit={() => setEditingId(course.id)}    onDelete={() => handleDelete(course.id)}  />))}
+ส่วนของโค้ด
+ความหมาย
+key={editingId ?? "new"}
+เมื่อค่า key เปลี่ยน React จะสร้าง CourseForm ขึ้นใหม่ ค่าในฟอร์มจึงตรงกับรายการที่เลือก
+??
+Nullish Coalescing ใช้ค่าทางขวาเมื่อค่าทางซ้ายเป็น null หรือ undefined
+onEdit={() => setEditingId(course.id)}
+ส่งฟังก์ชันที่ผูกรหัสของรายการนั้นไว้แล้ว Child Component จึงเรียกได้โดยไม่ต้องทราบรหัส
+กิจกรรม 3.7 ทดสอบการเพิ่ม ลบ และแก้ไข
+เพิ่มรายวิชาใหม่หนึ่งรายการ สังเกตว่ารายการปรากฏต่อท้ายและฟอร์มถูกล้าง
+คลิกปุ่มแก้ไขที่รายการที่เพิ่งเพิ่ม สังเกตว่าค่าเดิมปรากฏในฟอร์มครบทุกช่อง
+แก้ไขชื่อวิชาแล้วบันทึก สังเกตว่ารายการอื่นไม่เปลี่ยนแปลง
+คลิกปุ่มแก้ไขแล้วคลิกปุ่มยกเลิก สังเกตว่าฟอร์มกลับสู่โหมดเพิ่มรายการใหม่
+ลบรายการหนึ่งรายการ แล้วพิมพ์คำค้นเพิ่ม สังเกตว่าการค้นหายังทำงานร่วมกับรายการที่เหลือ
+กิจกรรม 3.8 เขียนส่วนแสดงผลของ CourseForm ด้วยตนเอง
+นำหัวข้อ 1.5 และ 2.3 มาประกอบเข้าด้วยกัน โดยเขียนส่วน return ของ CourseForm ให้ครบทุกฟิลด์ พร้อมข้อความแจ้งเตือนของแต่ละฟิลด์
+// src/components/CourseForm.tsx  ส่วนที่ 6 ของแผนผังโครง
+ส่วนที่ 4 Dynamic Route หน้ารายละเอียดรายวิชา
+4.1 โครงสร้างโฟลเดอร์ของ Dynamic Route
+src/app/courses/page.tsx           ->  /coursessrc/app/courses/[id]/page.tsx      ->  /courses/CS101                                       /courses/CS201                                       /courses/<ค่าใดก็ได้>
+ชื่อโฟลเดอร์ในวงเล็บเหลี่ยมคือ Dynamic Segment ค่าที่ผู้ใช้ระบุใน URL จะถูกส่งเข้ามาให้หน้าดังกล่าวผ่าน params โดยใช้ชื่อโฟลเดอร์เป็นชื่อคีย์
+4.2 อ่านค่าพารามิเตอร์จาก params
+src/app/courses/[id]/page.tsx
+import { courses } from "@/data/courses";type CoursePageProps = {  params: Promise<{ id: string }>;};export default async function CoursePage({ params }: CoursePageProps) {  const { id } = await params;  // เติม: เมธอดของ Array ที่คืนสมาชิกตัวแรกที่ผ่านเงื่อนไข  const course = courses.________((item) => item.id === id);  return <h1>{course?.name}</h1>;}
+ส่วนของโค้ด
+ความหมาย
+params: Promise<{ id: string }>
+ตั้งแต่ Next.js เวอร์ชัน 15 เป็นต้นไป params เป็น Promise จึงต้องประกาศ Type ในรูปแบบนี้
+async function
+ต้องประกาศฟังก์ชันเป็น async เพื่อให้ใช้คำสั่ง await ภายในได้
+await params
+รอค่าจาก Promise ก่อน แล้วจึงแยกค่า id ออกมาใช้งาน
+course?.name
+Optional Chaining ป้องกันการอ่านค่าจากตัวแปรที่ไม่มีค่า เมื่อไม่พบรายวิชาตามรหัสที่ระบุ
+ทดสอบ: เปิด http://localhost:3000/courses/CS101 แล้วเปิด http://localhost:3000/courses/XYZ999 เปรียบเทียบผลลัพธ์ของทั้งสอง URL
+4.3 แสดงหน้า 404 เมื่อไม่พบรายวิชา
+src/app/courses/[id]/page.tsx
+import { notFound } from "next/navigation";import { courses } from "@/data/courses";export default async function CoursePage({ params }: CoursePageProps) {  const { id } = await params;  const course = courses.find((item) => item.id === id);  // เติม: ฟังก์ชันที่สั่งให้แสดงหน้า 404  if (!course) {    ________();  }  return (    <article>      <h1>{course.name}</h1>      <p>รหัสวิชา {course.code}</p>      <p>หน่วยกิต {course.credit}</p>      <p>ผู้สอน {course.instructor}</p>    </article>  );}
+ส่วนของโค้ด
+ความหมาย
+notFound()
+สั่งให้ Next.js หยุดการทำงานของหน้านี้แล้วแสดงหน้า 404 แทน
+if (!course)
+เมธอด find คืนค่า undefined เมื่อไม่พบสมาชิกที่ตรงเงื่อนไข
+course.name
+หลังบรรทัด notFound TypeScript ทราบแล้วว่า course ไม่เป็น undefined จึงไม่ต้องใช้เครื่องหมายคำถาม
+4.4 กำหนด Metadata ตามข้อมูลจริง
+src/app/courses/[id]/page.tsx
+import type { Metadata } from "next";export async function generateMetadata(  { params }: CoursePageProps): Promise<Metadata> {  // เติม: คำสั่งที่ใช้รอค่าจาก Promise  const { id } = ________ params;  const course = courses.find((item) => item.id === id);  return {    title: course ? course.name : "ไม่พบรายวิชา",  };}
+หมายเหตุ generateMetadata ทำงานที่ฝั่งเซิร์ฟเวอร์เท่านั้น ไฟล์ที่ประกาศ use client จึงไม่สามารถใช้ฟังก์ชันนี้ได้
+4.5 เชื่อมหน้ารายการเข้ากับหน้ารายละเอียด
+src/components/CourseCard.tsx
+// เติม: Component ที่ใช้เปลี่ยนหน้าโดยไม่โหลดเอกสารใหม่import ________ from "next/link";export default function CourseCard(  { course, onEdit, onDelete }: CourseCardProps) {  return (    <article>      <h2>        <Link href={`/courses/${course.id}`}>{course.name}</Link>      </h2>      <p>{course.code}</p>      <button type="button" onClick={onEdit}>แก้ไข</button>      <button type="button" onClick={onDelete}>ลบ</button>    </article>  );}
+ส่วนของโค้ด
+ความหมาย
+ href={/courses/${course.id}} 
+Template Literal ประกอบ URL จากรหัสของรายวิชาแต่ละรายการ
+onClick={onEdit}
+ส่งฟังก์ชันที่ได้รับจาก Parent Component ต่อให้ปุ่มโดยตรง
+หมายเหตุ CourseCard ไม่ต้องประกาศ use client ซ้ำ เพราะถูก import จาก CourseExplorer ที่ประกาศไว้แล้ว ไฟล์ที่อยู่ใต้ Component ซึ่งประกาศ use client จะเป็น Client Component ตามไปโดยปริยาย
+กิจกรรม 4.5 ตรวจสอบการเชื่อมโยงระหว่างหน้า
+คลิกชื่อรายวิชาที่รายการแรก สังเกตว่า URL เปลี่ยนและหน้ารายละเอียดปรากฏ
+สังเกตชื่อที่ปรากฏบนแท็บของเบราว์เซอร์ ว่าตรงกับชื่อรายวิชาหรือไม่
+คลิกปุ่มย้อนกลับของเบราว์เซอร์ สังเกตว่ากลับสู่หน้ารายการได้
+พิมพ์ URL ที่ไม่มีอยู่จริง สังเกตว่าปรากฏหน้า 404
+ส่วนที่ 5 ข้อจำกัดของการเก็บข้อมูลไว้ใน State
+กิจกรรม 5.1 การทดลองที่นำไปสู่ใบงานถัดไป
+เพิ่มรายวิชาใหม่หนึ่งรายการที่หน้า /courses
+คลิกชื่อรายวิชาที่เพิ่งเพิ่ม เพื่อเปิดหน้ารายละเอียด
+บันทึกผลที่ปรากฏ
+ผลที่ปรากฏคือ
+เหตุผล
+ภาคผนวก ก มาตรฐานการเขียนโค้ดที่ใช้ในใบงานนี้
+หัวข้อ
+แนวปฏิบัติ
+ตัวอย่างในใบงาน
+การประกาศ Client Component
+ประกาศ use client ที่บรรทัดแรกสุดของไฟล์ ก่อน import ทุกบรรทัด
+CourseForm.tsx และ CourseExplorer.tsx
+ขอบเขตของ use client
+ประกาศเฉพาะไฟล์ที่ต้องโต้ตอบกับผู้ใช้ ให้ page.tsx คงเป็น Server Component
+app/courses/page.tsx ไม่ประกาศ use client
+การตั้งชื่อ Component
+ใช้ตัวพิมพ์ใหญ่นำหน้าแบบ PascalCase และตั้งชื่อไฟล์ให้ตรงกับชื่อ Component
+CourseForm CourseCard CourseExplorer
+การตั้งชื่อฟังก์ชัน Event Handler
+ขึ้นต้นด้วย handle ส่วน Props ที่รับฟังก์ชันขึ้นต้นด้วย on
+handleSave กับ Props ชื่อ onSave
+Controlled Input
+กำหนดทั้ง value และ onChange เสมอ
+ทุกอินพุตใน CourseForm
+ชนิดของอินพุต
+ใช้ type และ inputMode ให้ตรงกับข้อมูล ปริมาณใช้ number ตัวระบุใช้ text
+credit ใช้ number ส่วน code ใช้ text
+State ของฟอร์ม
+เก็บสิ่งที่ผู้ใช้พิมพ์ตามจริงเป็นข้อความ แล้วแปลงชนิดเมื่อผ่านการตรวจสอบ
+CourseDraft กับ Course
+ความสัมพันธ์ของ label กับ input
+ผูก htmlFor ของ label เข้ากับ id ของ input
+htmlFor="code" กับ id="code"
+การส่งฟอร์ม
+ใช้ onSubmit ที่ <form> ไม่ใช้ onClick ที่ปุ่ม และเรียก preventDefault เสมอ
+handleSubmit ในหัวข้อ 1.6
+การตรวจสอบข้อมูล
+เลือกอย่างใดอย่างหนึ่ง หากตรวจสอบเองให้ประกาศ noValidate ที่ <form>
+หัวข้อ 1.5 และ 2.2
+การอัปเดต State
+สร้างค่าใหม่เสมอ ไม่แก้ไขค่าเดิมโดยตรง
+Spread Operator filter และ map
+Updater Function
+ใช้รูปแบบ (prev) => ... เมื่อค่าใหม่อ้างอิงค่าเดิม
+setDraft ในหัวข้อ 1.4
+ค่า key ในรายการ
+ใช้รหัสที่ไม่ซ้ำกันของข้อมูล ไม่ใช้ลำดับของสมาชิก
+key={course.id}
+ตำแหน่งของ State
+วาง State ไว้ที่ Component ร่วมที่ใกล้ที่สุดของผู้ที่ต้องใช้
+courses อยู่ที่ CourseExplorer
+การกำหนด Type
+ประกาศ Type ของ Props ทุก Component และของเหตุการณ์ทุกตัว
+CourseFormProps และ FormEvent
+Dynamic Route
+ประกาศ params เป็น Promise แล้วใช้ await ก่อนอ่านค่า
+app/courses/[id]/page.tsx
+การจัดการข้อมูลที่ไม่พบ
+เรียก notFound เมื่อค้นหาข้อมูลไม่พบ ไม่แสดงหน้าว่าง
+หัวข้อ 4.3
+การเข้าถึงได้
+ระบุ aria-invalid และ aria-describedby ให้อินพุตที่มีข้อความแจ้งเตือน
+หัวข้อ 2.3
+การเปลี่ยนหน้า
+ใช้ Link จาก next/link แทนแท็ก <a> สำหรับเส้นทางภายในโปรเจกต์
+CourseCard.tsx
+ภาคผนวก ข การจัดการ State ที่ซับซ้อนขึ้น
+ภาคผนวกนี้เป็นตัวอย่าง เมื่อ State ของหน้ามีหลายค่าและมีเงื่อนไขการเปลี่ยนแปลงหลายรูปแบบ การใช้ useState หลายตัวจะติดตามได้ยากขึ้น
+ข.1 useReducer รวมการเปลี่ยนแปลงไว้ที่เดียว
+ตัวอย่างประกอบ 
+// src/reducers/coursesReducer.ts
+import type { Course } from "@/types/course";
+export type CoursesAction =
+  | { type: "created"; course: Course }
+  | { type: "deleted"; id: string }
+  | { type: "updated"; id: string; course: Course };
+export function coursesReducer(
+  state: Course[],
+  action: CoursesAction
+): Course[] {
+  switch (action.type) {
+    case "created":
+      return [...state, action.course];
+    case "deleted":
+      return state.filter((course) => course.id !== action.id);
+    case "updated":
+      return state.map((course) =>
+        course.id === action.id ? action.course : course
+      );
+    default:
+      return state;
+  }
+}
+// src/components/CourseExplorer.tsx
+"use client";
+import { useReducer, useState, type ChangeEvent } from "react";
+import type { Course } from "@/types/course";
+import CourseCard from "@/components/CourseCard";
+import CourseForm, { type CourseDraft } from "@/components/CourseForm";
+import { coursesReducer } from "@/reducers/coursesReducer";
+type CourseExplorerProps = {
+  initialCourses: Course[];
+};
+export default function CourseExplorer(
+  { initialCourses }: CourseExplorerProps
+) {
+  const [courses, dispatch] = useReducer(coursesReducer, initialCourses);
+  const [keyword, setKeyword] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  function toCourse(id: string, draft: CourseDraft): Course {
+    return {
+      id,
+      code: draft.code.trim(),
+      name: draft.name.trim(),
+      credit: Number(draft.credit),
+      instructor: draft.instructor.trim(),
+    };
+  }
+  function handleSave(draft: CourseDraft) {
+    if (editingId === null) {
+      dispatch({ type: "created", course: toCourse(crypto.randomUUID(), draft) });
+      return;
+    }
+    dispatch({ type: "updated", id: editingId, course: toCourse(editingId, draft) });
+    setEditingId(null);
+  }
+  const editingCourse = courses.find((course) => course.id === editingId);
+  const searchText = keyword.trim().toLowerCase();
+  const visibleCourses = courses.filter((course) =>
+    course.name.toLowerCase().includes(searchText) ||
+    course.code.toLowerCase().includes(searchText)
+  );
+  function handleKeywordChange(event: ChangeEvent<HTMLInputElement>) {
+    setKeyword(event.target.value);
+  }
+  return (
+    <div>
+      <input id="keyword" placeholder="ค้นหารายวิชา" value={keyword}
+             onChange={handleKeywordChange} />
+      <CourseForm
+        key={editingId ?? "new"}
+        initialCourse={editingCourse}
+        onSave={handleSave}
+        onCancel={() => setEditingId(null)}
+      />
+      {visibleCourses.length === 0 ? (
+        <p>ไม่พบรายวิชาที่ตรงกับคำค้น</p>
+      ) : (
+        visibleCourses.map((course) => (
+          <CourseCard
+            key={course.id}
+            course={course}
+            onEdit={() => setEditingId(course.id)}
+            onDelete={() => dispatch({ type: "deleted", id: course.id })}
+          />
+        ))
+      )}
+    </div>
+  );
+}
+แนวคิด
+ความหมาย
+Action
+อธิบายว่าเกิดเหตุการณ์ใดขึ้น พร้อมข้อมูลที่จำเป็นต่อเหตุการณ์นั้น
+reducer
+ฟังก์ชันที่รับสถานะเดิมกับ Action แล้วคืนสถานะใหม่เสมอ
+dispatch
+ฟังก์ชันที่ใช้ส่ง Action เข้าสู่ reducer แทนการเรียก setState โดยตรง
+ข.2 Redux Toolkit สำหรับข้อมูลที่ใช้ร่วมกันหลายหน้า
+ตัวอย่างประกอบ 
+next-course-hub/
+├── package.json                    ~ เพิ่ม @reduxjs/toolkit และ react-redux
+├── tsconfig.json
+└── src/
+    ├── app/                        
+    │   ├── layout.tsx              ~ ครอบทั้งแอปด้วย StoreProvider
+    │   ├── StoreProvider.tsx       + เชื่อม Store เข้ากับ React
+    │   └── courses/
+    │       ├── page.tsx            ~ อ่านข้อมูลตั้งต้น ส่งให้ CourseExplorer
+    │       └── [id]/page.tsx         
+    │
+    ├── components/                 
+    │   ├── CourseExplorer.tsx      ~ อ่านและสั่งเปลี่ยน Store
+    │   ├── CourseForm.tsx            
+    │   └── CourseCard.tsx            
+    │
+    ├── lib/                        
+    │   ├── store.ts                + ประกอบ Store และประกาศ Type
+    │   ├── hooks.ts                + Hook ที่ผูก Type ของ Store ไว้แล้ว
+    │   └── coursesSlice.ts         + ตรรกะเพิ่ม ลบ แก้ไข รวมอยู่ที่นี่
+    │
+    ├── data/courses.ts               
+    └── types/course.ts               
++  ไฟล์ใหม่   ~  แก้ไข 
+// src/lib/coursesSlice.ts
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Course } from "@/types/course";
+const coursesSlice = createSlice({
+  name: "courses",
+  initialState: [] as Course[],
+  reducers: {
+    initialized(state, action: PayloadAction<Course[]>) {
+      return action.payload;
+    },
+    created(state, action: PayloadAction<Course>) {
+      state.push(action.payload);
+    },
+    deleted(state, action: PayloadAction<string>) {
+      return state.filter((course) => course.id !== action.payload);
+    },
+    updated(state, action: PayloadAction<Course>) {
+      const index = state.findIndex((course) => course.id === action.payload.id);
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
+    },
+  },
+});
+export const { initialized, created, deleted, updated } = coursesSlice.actions;
+export default coursesSlice.reducer;
+// src/lib/store.ts
+import { configureStore } from "@reduxjs/toolkit";
+import coursesReducer from "@/lib/coursesSlice";
+export const makeStore = () => {
+  return configureStore({
+    reducer: {
+      courses: coursesReducer,
+    },
+  });
+};
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
+// src/lib/hooks.ts
+import { useDispatch, useSelector, useStore } from "react-redux";
+import type { RootState, AppDispatch, AppStore } from "@/lib/store";
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
+export const useAppStore = useStore.withTypes<AppStore>();
+// src/components/CourseExplorer.tsx
+"use client";
+import { useRef, useState, type ChangeEvent } from "react";
+import type { Course } from "@/types/course";
+import CourseCard from "@/components/CourseCard";
+import CourseForm, { type CourseDraft } from "@/components/CourseForm";
+import { useAppDispatch, useAppSelector, useAppStore } from "@/lib/hooks";
+import { initialized, created, deleted, updated } from "@/lib/coursesSlice";
+type CourseExplorerProps = {
+  initialCourses: Course[];
+};
+export default function CourseExplorer(
+  { initialCourses }: CourseExplorerProps
+) {
+  const store = useAppStore();
+  const isInitialized = useRef(false);
+  if (!isInitialized.current) {
+    store.dispatch(initialized(initialCourses));
+    isInitialized.current = true;
+  }
+  const courses = useAppSelector((state) => state.courses);
+  const dispatch = useAppDispatch();
+  const [keyword, setKeyword] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  function toCourse(id: string, draft: CourseDraft): Course {
+    return {
+      id,
+      code: draft.code.trim(),
+      name: draft.name.trim(),
+      credit: Number(draft.credit),
+      instructor: draft.instructor.trim(),
+    };
+  }
+  function handleSave(draft: CourseDraft) {
+    if (editingId === null) {
+      dispatch(created(toCourse(crypto.randomUUID(), draft)));
+      return;
+    }
+    dispatch(updated(toCourse(editingId, draft)));
+    setEditingId(null);
+  }
+  const editingCourse = courses.find((course) => course.id === editingId);
+  const searchText = keyword.trim().toLowerCase();
+  const visibleCourses = courses.filter((course) =>
+    course.name.toLowerCase().includes(searchText) ||
+    course.code.toLowerCase().includes(searchText)
+  );
+  function handleKeywordChange(event: ChangeEvent<HTMLInputElement>) {
+    setKeyword(event.target.value);
+  }
+  return (
+    <div>
+      <input id="keyword" placeholder="ค้นหารายวิชา" value={keyword}
+             onChange={handleKeywordChange} />
+      <CourseForm
+        key={editingId ?? "new"}
+        initialCourse={editingCourse}
+        onSave={handleSave}
+        onCancel={() => setEditingId(null)}
+      />
+      {visibleCourses.length === 0 ? (
+        <p>ไม่พบรายวิชาที่ตรงกับคำค้น</p>
+      ) : (
+        visibleCourses.map((course) => (
+          <CourseCard
+            key={course.id}
+            course={course}
+            onEdit={() => setEditingId(course.id)}
+            onDelete={() => dispatch(deleted(course.id))}
+          />
+        ))
+      )}
+    </div>
+  );
+}
+// src/app/courses/page.tsx
+import type { Metadata } from "next";
+import { courses } from "@/data/courses";
+import CourseExplorer from "@/components/CourseExplorer";
+export const metadata: Metadata = { title: "รายวิชาทั้งหมด" };
+export default function CoursesPage() {
+  return (
+    <main>
+      <h1>รายวิชาทั้งหมด</h1>
+      <CourseExplorer initialCourses={courses} />
+    </main>
+  );
+}
+// src/app/StoreProvider.tsx
+"use client";
+import { useState, type ReactNode } from "react";
+import { Provider } from "react-redux";
+import { makeStore, type AppStore } from "@/lib/store";
+export default function StoreProvider({ children }: { children: ReactNode }) {
+  const [store] = useState<AppStore>(makeStore);
+  return <Provider store={store}>{children}</Provider>;
+}
+// src/app/layout.tsx
+import StoreProvider from "@/app/StoreProvider";
+export const metadata = { title: "next-course-hub" };
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="th">
+      <body>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
+    </html>
+  );
+}
+State Management
+useState
+useReducer
+Redux Toolkit
+Zustand
+ประเภท
+ความสามารถในตัวของ React
+ความสามารถในตัวของ React
+ไลบรารีภายนอก
+ไลบรารีภายนอก
+ตำแหน่งที่เก็บสถานะ
+ภายใน Component
+ภายใน Component
+Store กลางภายนอก React
+Store กลางภายนอก React
+แนวคิดหลัก
+เก็บค่าหนึ่งค่า เปลี่ยนด้วยการแทนที่
+ส่งเหตุการณ์เข้าสู่ฟังก์ชัน แล้วได้สถานะใหม่
+ทุกการเปลี่ยนแปลงผ่านเส้นทางเดียวในรูปของ Action
+อ็อบเจกต์กลางที่ Component สมัครรับเฉพาะส่วนที่ต้องการ
+หน่วยของสถานะ
+แยกเป็นค่าอิสระหลายค่า
+ก้อนเดียวที่สัมพันธ์กัน
+หลาย Slice รวมเป็นโครงสร้างเดียว
+หลาย Store อิสระ หรือก้อนเดียว
+รูปแบบคำสั่งเปลี่ยนค่า
+setX(ค่าใหม่)
+dispatch(action)
+dispatch(actionCreator(payload))
+เรียกฟังก์ชันภายใน Store โดยตรง
+ตำแหน่งของตรรกะการเปลี่ยนแปลง
+กระจายตาม Event Handler
+รวมศูนย์ที่ Reducer
+รวมศูนย์ที่ Slice
+รวมศูนย์ที่ Store
+การใช้ข้อมูลร่วมข้าม Component
+ต้องยกสถานะขึ้น Parent แล้วส่งผ่าน Props
+เช่นเดียวกัน หรือใช้ร่วมกับ Context
+เข้าถึงได้จากทุกตำแหน่งในแอปพลิเคชัน
+เข้าถึงได้จากทุกตำแหน่งในแอปพลิเคชัน
+ปริมาณโค้ดที่ต้องเตรียมก่อนใช้งาน
+ไม่มี
+น้อย ต้องประกาศ Action Type
+มาก ต้องตั้งค่า Store, Slice, Hook และ Provider
+ปานกลาง ต้องสร้าง Store และ Provider
+ผลต่อขนาดไฟล์ที่ส่งให้เบราว์เซอร์
+ไม่เพิ่ม
+ไม่เพิ่ม
+เพิ่มมาก
+เพิ่มน้อยมาก
+ระดับความยากในการเริ่มต้น
+ต่ำที่สุด
+ต่ำ
+สูงที่สุด
+ปานกลาง
+ข้อควรระวังที่สำคัญ
+เมื่อสถานะหลายค่าต้องเปลี่ยนพร้อมกัน ตรรกะจะกระจายจนติดตามได้ยาก
+ไม่ได้แก้ปัญหาการใช้ข้อมูลร่วม ยังคงเป็นสถานะของ Component เดียว
+ความซับซ้อนอาจเกินความจำเป็นสำหรับโปรเจกต์ขนาดเล็ก และถอดออกภายหลังได้ยาก
+ความยืดหยุ่นสูงทำให้โครงสร้างไม่เป็นระเบียบได้หากทีมไม่กำหนดแนวทางร่วมกัน
+สถานการณ์ที่เหมาะสม
+สถานะใช้งานเฉพาะภายใน Component เดียว มีจำนวนน้อย
+สถานะก้อนเดียวที่มีหลายสถานะและเงื่อนไขการเปลี่ยนแปลงซับซ้อน
+ระบบขนาดใหญ่ ทีมหลายคน ต้องการแบบแผนและเครื่องมือตรวจสอบที่สมบูรณ์
+โปรเจกต์ขนาดเล็กถึงกลางที่ต้องใช้ข้อมูลร่วมข้ามหน้า และต้องการความเบา
+ศึกษาเพิ่มเติม
+Search -> React State Management Libraries
+โจทย์ประยุกต์ Game Backlog
+สร้างหน้าเว็บสำหรับบันทึกรายการเกมที่ตั้งใจจะเล่น โดยใช้โปรเจกต์เดิมและสร้างเส้นทางใหม่ ที่ /games ข้อมูลของแต่ละเกมประกอบด้วย ชื่อเกม แพลตฟอร์ม จำนวนชั่วโมงที่คาดว่าจะใช้เล่น และสถานะซึ่งมีสามค่าคือ ยังไม่เริ่ม กำลังเล่น และเล่นจบแล้ว
+สิ่งที่ต้องทำ
+สร้าง Type และไฟล์ข้อมูลตั้งต้นของเกมอย่างน้อย 5 รายการ
+สร้างฟอร์มเพิ่มเกมแบบ Controlled Input ที่เก็บทุกฟิลด์ไว้ใน State ก้อนเดียว
+ตรวจสอบความถูกต้องก่อนบันทึก โดยชื่อเกมต้องไม่เป็นค่าว่าง จำนวนชั่วโมงต้องเป็นจำนวนเต็มบวก และแพลตฟอร์มต้องถูกเลือก
+แสดงข้อความแจ้งเตือนใต้ฟิลด์ที่ไม่ผ่านการตรวจสอบ
+เพิ่มปุ่มลบและปุ่มแก้ไขที่แต่ละรายการ โดยการแก้ไขต้องนำค่าเดิมกลับเข้าฟอร์ม
+สร้างหน้ารายละเอียดที่ /games/[id] พร้อมเรียก notFound เมื่อไม่พบข้อมูล
+กำหนดชื่อแท็บของหน้ารายละเอียดตามชื่อเกมด้วย generateMetadata
+ส่วนขยาย สำหรับผู้ที่ต้องการพัฒนาทักษะเพิ่มเติม
+เพิ่มปุ่มเปลี่ยนสถานะของเกมได้โดยตรงจากรายการ โดยไม่ต้องเปิดฟอร์มแก้ไข
+แสดงจำนวนชั่วโมงรวมของเกมที่ยังไม่เริ่ม โดยคำนวณเป็น Derived State
+เพิ่มตัวกรองตามสถานะ และให้ทำงานร่วมกับช่องค้นหาชื่อเกมได้พร้อมกัน
+เพิ่มขั้นตอนยืนยันก่อนลบ โดยใช้ State เก็บรหัสของรายการที่รอการยืนยัน
+ใช้ React State Management Libraries
+เอกสารอ้างอิง
+หมวด
+หัวข้อ
+ลิงก์
+React
+Reacting to Input with State
+https://react.dev/learn/reacting-to-input-with-state
+React
+Updating Objects in State
+https://react.dev/learn/updating-objects-in-state
+React
+Updating Arrays in State
+https://react.dev/learn/updating-arrays-in-state
+React
+Sharing State Between Components
+https://react.dev/learn/sharing-state-between-components
+React
+Extracting State Logic into a Reducer
+https://react.dev/learn/extracting-state-logic-into-a-reducer
+Next.js
+Dynamic Routes
+https://nextjs.org/docs/app/api-reference/file-conventions/dynamic-routes
+Next.js
+Linking and Navigating
+https://nextjs.org/docs/app/getting-started/linking-and-navigating
+Next.js
+notFound
+https://nextjs.org/docs/app/api-reference/functions/not-found
+Next.js
+generateMetadata
+https://nextjs.org/docs/app/api-reference/functions/generate-metadata
+MDN
+Client-side form validation
+https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation
+MDN
+Crypto: randomUUID()
+https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
+TypeScript
+Utility Types
+https://www.typescriptlang.org/docs/handbook/utility-types.html
+Redux Toolkit
+Setup with Next.js
+https://redux-toolkit.js.org/usage/nextjs
+Redux Toolkit
+createSlice
+https://redux-toolkit.js.org/api/createSlice
+Redux
+Redux Essentials Tutorial
+https://redux.js.org/tutorials/essentials/part-1-overview-concepts
